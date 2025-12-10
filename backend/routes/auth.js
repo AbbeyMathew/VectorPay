@@ -1,18 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const { register, login } = require("../controllers/authController");
+const { register, login, requireAuth, requireAdmin } = require("../controllers/authController");
 const { sendEmail } = require("../lib/mailer");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
 router.post("/register", register);
 router.post("/login", login);
+router.post("/admin", requireAuth, requireAdmin);
 
 function isValidEmail(email) {
     if (!email || typeof email !== 'string') return false;
     const s = String(email).trim();
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
+
 function isValidPassword(password) {
     if (!password || typeof password !== 'string') return false;
     if (password.length < 6) return false;
@@ -31,6 +33,9 @@ router.post("/forgot", async (req, res) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ message: "Email required" });
 
+    if (!isValidEmail(email))
+        return res.status(400).json({ message: 'Invalid email format' });
+
     const code = generateOtp();
     const expiresAt = Date.now() + 1000 * 60 * 10;
     otpStore.set(email, { code, expiresAt, attempts: 0, verified: false });
@@ -43,7 +48,7 @@ router.post("/forgot", async (req, res) => {
         const info = await sendEmail(email, "Your VectorPay OTP", text, html);
         console.log("[OTP] email sent:", info.messageId);
 
-        return res.json({ ok: true, message: "OTP sent"});
+        return res.json({ ok: true, message: "OTP sent" });
     } catch (err) {
         console.error("[OTP] send failed", err);
         return res.status(500).json({ message: "Failed to send OTP", error: err.message });
@@ -80,6 +85,9 @@ router.post("/verify-otp", (req, res) => {
 router.post("/reset", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: "Missing params" });
+
+    if (!isValidPassword(password))
+        return res.status(400).json({ message: 'Password must be at least 6 characters and include letters and numbers' });
 
     const entry = otpStore.get(email);
     if (!entry || !entry.verified) {

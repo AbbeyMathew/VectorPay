@@ -73,7 +73,7 @@ exports.register = async (req, res, next) => {
     }
 
     const token = jwt.sign(
-      { id: user._id },
+      { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -115,14 +115,16 @@ exports.login = async (req, res, next) => {
     
     const cleanPhone = normalizePhone(phone);
 
-    const user = await User.findOne({ phone: cleanPhone });
+    const user = await User.findOne({ phone: cleanPhone }).select('+password +isAdmin');
     if (!user) return res.status(400).json({ message: 'User not found' });
+
+    const payload = { id: user._id, isAdmin: user.isAdmin };
 
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(400).json({ message: 'Incorrect password' });
 
     const token = jwt.sign(
-      { id: user._id },
+      { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -136,6 +138,7 @@ exports.login = async (req, res, next) => {
         name: user.name,
         phone: user.phone,
         email: user.email,
+        isAdmin: user.isAdmin,
         wallet: wallet
           ? { phone: wallet.phone, balance: wallet.balance }
           : null
@@ -145,4 +148,23 @@ exports.login = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.requireAuth = async (req, res, next) => {
+  const auth = req.headers.authorization;
+  if (!auth || !auth.startsWith('Bearer ')) return res.status(401).json({ message: 'Unauthorized' });
+
+  const token = auth.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+};
+
+exports.requireAdmin = (req, res, next) => {
+  if (!req.user || !req.user.isAdmin) return res.status(403).json({ message: 'Admin access required' });
+  next();
 };

@@ -9,14 +9,14 @@ import img3 from "../assets/carousel_img3.jpg";
 import img4 from "../assets/carousel_img4.jpg";
 import img5 from "../assets/carousel_img5.jpg";
 import "./styles/Login.css"
+import { setAuthToken } from "../api/axios";
 
 export default function Login() {
     const [form, setForm] = useState({ phone: "", password: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    // forgot flow
-    const [mode, setMode] = useState("login"); // 'login' | 'forgot-password' | 'verify-otp'
+    const [mode, setMode] = useState("login");
     const [recoverEmail, setRecoverEmail] = useState("");
     const [otp, setOtp] = useState("");
     const [resendCooldown, setResendCooldown] = useState(0);
@@ -48,8 +48,20 @@ export default function Login() {
         setLoading(true);
         try {
             const r = await login(form);
-            localStorage.setItem("token", r.data.token);
-            nav("/dashboard");
+            const token = r?.data?.token;
+            const user = r?.data?.user;
+
+            if (token) {
+                localStorage.setItem("token", token);
+                setAuthToken(token);
+                window.dispatchEvent(new Event("auth:changed"));
+            }
+
+            if (user?.isAdmin) {
+                nav('/admin');
+            } else {
+                nav("/dashboard");
+            }
         } catch (err) {
             setError(err?.response?.data?.message || err.message || "Login failed");
         } finally {
@@ -111,7 +123,6 @@ export default function Login() {
         setLoading(true);
         try {
             await verifyOtp(recoverEmail, otp);
-            // route to change-password page, passing email via state
             nav("/change-password", { state: { email: recoverEmail } });
         } catch (err) {
             setError(err?.response?.data?.message || err.message || "Invalid or expired OTP");

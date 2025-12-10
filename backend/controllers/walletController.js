@@ -48,32 +48,6 @@ exports.topup = async (req, res) => {
   }
 };
 
-/* exports.transfer = async (req, res, next) => {
-  const { toEmail, amount, note } = req.body;
-  if (!toEmail || !amount || amount <= 0) return res.status(400).json({ message: 'Invalid input' });
-  if (req.user.email === toEmail) return res.status(400).json({ message: 'Cannot transfer to self' });
-  if (req.user.balance < amount) return res.status(400).json({ message: 'Insufficient funds' });
-  const session = await mongoose.startSession();
-  session.startTransaction();
-  try {
-    const recipient = await User.findOne({ email: toEmail }).session(session);
-    if (!recipient) { await session.abortTransaction(); session.endSession(); return res.status(404).json({ message: 'Recipient not found' }); }
-    req.user.balance -= amount;
-    recipient.balance += amount;
-    await req.user.save({ session });
-    await recipient.save({ session });
-    await Transaction.create([{ from: req.user._id, to: recipient._id, amount, type: 'debit', note },
-                              { from: req.user._id, to: recipient._id, amount, type: 'credit', note }], { session });
-    await session.commitTransaction();
-    session.endSession();
-    res.json({ balance: req.user.balance });
-  } catch (err) { 
-    await session.abortTransaction(); 
-    session.endSession(); 
-    next(err); 
-  }
-}; */
-
 exports.transfer = async (req, res, next) => {
   try {
     const { toPhone, amount, note } = req.body;

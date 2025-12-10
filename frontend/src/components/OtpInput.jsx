@@ -1,12 +1,5 @@
 import React, { useRef, useEffect } from "react";
 
-/**
- * Props:
- *  length: number (default 6)
- *  value: string (current OTP string)
- *  onChange: fn(newValue)
- *  autoFocus: boolean
- */
 export default function OtpInput({ length = 6, value = "", onChange, autoFocus = true }) {
     const inputsRef = useRef([]);
 
@@ -14,7 +7,6 @@ export default function OtpInput({ length = 6, value = "", onChange, autoFocus =
         if (autoFocus && inputsRef.current[0]) inputsRef.current[0].focus();
     }, [autoFocus]);
 
-    // keep local string length consistent
     const padded = (value || "").slice(0, length).padEnd(length, "");
 
     const handlePaste = (e) => {
@@ -23,7 +15,6 @@ export default function OtpInput({ length = 6, value = "", onChange, autoFocus =
         const digits = paste.replace(/\D/g, "").slice(0, length);
         if (!digits) return;
         onChange(digits);
-        // focus last filled
         const lastIndex = Math.min(digits.length - 1, length - 1);
         inputsRef.current[lastIndex]?.focus();
     };
@@ -33,7 +24,6 @@ export default function OtpInput({ length = 6, value = "", onChange, autoFocus =
         const cur = inputsRef.current[idx];
         if (key === "Backspace") {
             e.preventDefault();
-            // if current has value, clear it; otherwise go back
             if (padded[idx]) {
                 const next = padded.split("");
                 next[idx] = "";
@@ -52,15 +42,14 @@ export default function OtpInput({ length = 6, value = "", onChange, autoFocus =
             e.preventDefault();
             inputsRef.current[idx + 1].focus();
         } else if (key === "Enter") {
-            // do nothing here; parent form submission will handle
+            //pass
         } else if (!/^[0-9]$/.test(key) && key.length === 1) {
-            // avoid non-digit typing
             e.preventDefault();
         }
     };
 
     const onInput = (e, idx) => {
-        const ch = e.target.value.replace(/\D/g, "").slice(-1); // last digit only
+        const ch = e.target.value.replace(/\D/g, "").slice(-1);
         const arr = padded.split("");
         arr[idx] = ch || "";
         const newValue = arr.join("").replace(/\s/g, "");

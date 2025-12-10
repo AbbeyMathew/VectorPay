@@ -70,7 +70,9 @@ nav {
 }
 
 .nav-link {
+    margin: 0;
     font-family: 'Montserrat', sans-serif;
+    font-size: 2.2vh;
     font-weight: 600;
     color: #B7E4C7;
     text-transform: uppercase;
@@ -80,18 +82,11 @@ nav {
 
 .profile {
     height: 5vh;
-    width: fit-content;
+    width: 15vw;
     display: flex;
     align-items: center;
     gap: 2vh;
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 2vh;
-}
-
-.profile-icon {
-    height: 5vh;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background-color: #B7E4C7;
 }

@@ -1,28 +1,50 @@
-import React, {useEffect, useState} from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import MouseCursor from "./components/MouseCursor";
+import ProfileButton from "./components/ProfileButton";
 import Mainpage from './pages/Mainpage';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ChangePassword from "./pages/ChangePassword";
 import Dashboard from './pages/Dashboard';
-import {me} from './services/walletService';
+import Admin from './pages/Admin';
+import { me } from './services/walletService';
+import { setAuthToken } from './api/axios';
 
 
 export default function App() {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    const token = localStorage.getItem("token");
+    if (token) setAuthToken(token);
 
     const load = async () => {
         try {
             const r = await me();
-            setUser(r.data.user);
+            setUser(r?.data?.user);
         } catch (e) {
-            console.error(e);
+            console.error("load", e);
         }
     };
 
     useEffect(() => {
         load();
+    }, []);
+
+    useEffect(() => {
+        async function checkUser() {
+            try {
+                const r = await me();
+                const user = r.data.user;
+                if (user?.isAdmin && window.location.pathname !== '/admin') {
+                    navigate('/admin');
+                }
+            } catch (err) {
+                console.warn("Not authenticated");
+            }
+        }
+        checkUser();
     }, []);
 
     return (
@@ -49,8 +71,7 @@ export default function App() {
                 </div>
 
                 <div className="profile hoverable">
-                    <div>Welcome, {user?.name ?? 'Guest'}</div>
-                    <div className="profile-icon"></div>
+                    <ProfileButton />
                 </div>
             </nav>
 
@@ -60,6 +81,7 @@ export default function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path="/change-password" element={<ChangePassword />} />
                 <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/admin' element={<Admin />} />
             </Routes>
         </>
     );

@@ -9,7 +9,6 @@ createRoot(document.getElementById('root')).render(<BrowserRouter> <App/> </Brow
 
 
 
-// -----------CURSOR EFFECT-----------
 const $bigBall = document.querySelector('.cursor__ball--big');
 const $smallBall = document.querySelector('.cursor__ball--small');
 const $hoverables = document.querySelectorAll('.hoverable');

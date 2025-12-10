@@ -1,35 +1,41 @@
-// src/services/authService.js
-import axios from "axios";
+import instance, { setAuthToken } from "../api/axios";
 
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
-    withCredentials: true,
-    headers: { "Content-Type": "application/json" },
-});
+export async function register(credentials) {
+    const res = await instance.post("/auth/register", credentials);
 
-// REGISTER
-export function register(credentials) {
-    return api.post("/auth/register", credentials);
+    const token = res?.data?.token;
+    if (token) {
+        localStorage.setItem("token", token);
+        setAuthToken(token);
+        window.dispatchEvent(new Event("auth:changed"));
+    }
+    return res;
 }
 
-// LOGIN
-export function login(credentials) {
-    return api.post("/auth/login", credentials);
+export async function login(credentials) {
+    const res = await instance.post("/auth/login", credentials);
+
+    const token = res?.data?.token;
+    if (token) {
+        localStorage.setItem("token", token);
+        setAuthToken(token);
+        window.dispatchEvent(new Event("auth:changed"));
+    }
+    return res;
+
+    /* return api.post("/auth/login", credentials); */
 }
 
-// SEND OTP
 export function requestPasswordReset(email) {
-    return api.post("/auth/forgot", { email });
+    return instance.post("/auth/forgot", { email });
 }
 
-// VERIFY OTP
 export function verifyOtp(email, otp) {
-    return api.post("/auth/verify-otp", { email, otp });
+    return instance.post("/auth/verify-otp", { email, otp });
 }
 
-// RESET PASSWORD
 export function resetPassword(email, password) {
-    return api.post("/auth/reset", { email, password });
+    return instance.post("/auth/reset", { email, password });
 }
 
 export default {
