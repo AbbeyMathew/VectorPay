@@ -1,0 +1,92 @@
+html {
+    cursor: none;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    cursor: none;
+    background-color: rgb(230, 230, 230);
+}
+
+@keyframes fadeIn {
+    to {opacity: 1;}
+}
+
+body .cursor {
+    pointer-events: none;
+}
+
+body .cursor__ball {
+    position: fixed;
+    top: 0;
+    left: 0;
+    mix-blend-mode: difference;
+    z-index: 1000;
+}
+
+body .cursor__ball circle {
+    fill: #f7f8fa;
+}
+
+nav {
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    padding: 4vh;
+    box-sizing: border-box;
+    justify-content: space-between;
+    background-color: #081C15;
+}
+
+.logo {
+    height: 8vh;
+    width: 7vw;
+    background: url('assets/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.logo-text {
+    font-family: "Zalando Sans Expanded", sans-serif;
+    font-weight: 500;
+    color: #f8f8f8;
+    font-size: 3.4vh;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    cursor: none;
+}
+
+.navbar-nav {
+    width: 40vw;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-link {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2vh;
+    font-weight: 600;
+    color: #B7E4C7;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: none;
+}
+
+.profile {
+    height: 5vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    gap: 2vh;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vh;
+}

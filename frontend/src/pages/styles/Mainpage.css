@@ -1,0 +1,155 @@
+.card-main {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 85vh;
+    min-width: 310px;
+    width: 90vw;
+    box-sizing: border-box;
+    background: linear-gradient(30deg, #52b788 60%, #95D5B2);
+    border-radius: 2vh;
+}
+
+.inner-card {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-wrap: wrap;
+    height: 90%;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inner-card h2 {
+    margin-top: 0vh;
+    font-size: 10vh;
+}
+
+.inner-card p {
+    font-size: 3vh;
+    width: 100%;
+    margin-top: -7vh;
+}
+
+.start-button {
+    height: 6vh;
+    width: 10vw;
+    border: none;
+    cursor: none;
+    border-radius: 25vh;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgb(235, 235, 235);
+    background-color: rgb(20, 20, 20);
+}
+
+
+#container {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#panel,
+#panel-container {
+    height: 50%;
+    width: 500px;
+    border-radius: 2vh;
+}
+
+#panel-container {
+    position: absolute;
+    background: url("../../assets/creditbg.jpg") center top;
+    background-size: cover;
+    transform: perspective(400px) rotateX(0deg) rotateY(0deg);
+    transform-style: preserve-3d;
+    box-shadow: 1.5rem 2.5rem 5rem 0.7rem rgba(0, 0, 0, 0.13);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glow {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 2vh;
+    z-index: 20;
+    transition: 0.5s ease-in-out;
+}
+
+#panel-container:hover .glow {
+    -webkit-box-shadow: 0px 19px 42px 18px #b9acdd48, 0px 7px 26px 4px #9382c57d, 0px 7px 21px -2px #6247aa;
+    box-shadow: 0px 19px 42px 18px #b9acdd48, 0px 7px 26px 4px #9382c57d, 0px 7px 21px -2px #6247aa;
+}
+
+.panel-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 10%;
+    transform: translateZ(80px) scale(0.8);
+    transform-style: preserve-3d;
+    overflow-wrap: break-word;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.6s ease-in-out;
+    z-index: 1;
+}
+
+.card-brand {
+    position: absolute;
+    right: 7%;
+    top: 7%;
+    font-size: 20px;
+    font-weight: 700;
+    height: 5vh;
+    width: 5vw;
+    background: url("../../assets/logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+.card-chip {
+    width: 15%;
+    aspect-ratio: 1.6;
+    border-radius: 1vh;
+    margin-top: 20%;
+    background: linear-gradient(135deg, #e9dfc3, #cbb88a);
+}
+
+.card-number {
+    font-size: 5vh;
+    font-weight: 600;
+    letter-spacing: 0.8vh;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+.card-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.card-label {
+    font-size: 10px;
+    opacity: .8;
+    text-transform: uppercase;
+}
+
+.card-value {
+    font-size: 14px;
+    font-weight: 600;
+}

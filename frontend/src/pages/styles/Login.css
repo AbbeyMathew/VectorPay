@@ -1,0 +1,131 @@
+.login-main {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    background: url('../../assets/loginBg.png');
+    background-size: cover;
+}
+
+.login-wrapper {
+    margin-top: 3%;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.login-card {
+    position: relative;
+    height: 72vh;
+    width: 30vw;
+    background: linear-gradient(30deg, #52b788 60%, #95D5B2);
+    padding: 4vh 5vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-title {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 4vh;
+    font-weight: 600;
+    line-height: 10vh;
+    color: #111;
+    border-bottom: #111 solid 0.2vh;
+}
+
+.login-error {
+    position: absolute;
+    top: 19vh;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: rgb(142, 11, 11);
+}
+
+.login-form {
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login-input {
+    height: 2vh;
+    width: 80%;
+    padding: 1.5vh 1.5vh;
+    border-radius: 1vh;
+    border: 0.2vh solid #eeeeee;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vh;
+    margin-top: 1vh;
+    cursor: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-input:focus {
+    border-color: #2eb37a;
+    box-shadow: 0 6px 18px rgba(226, 234, 231, 0.14);
+}
+
+.forgot {
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: underline;
+    border: none;
+    background-color: transparent;
+    cursor: none;
+}
+
+.login-button {
+    margin-top: 4vh;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    padding: 1.5vh 2vw;
+    border-radius: 1vh;
+    border: none;
+    background-color: rgb(247, 247, 247);
+    color: #52b788;
+    cursor: none;
+    font-weight: 600;
+    font-size: 2.3vh;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-button:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 12px 28px rgba(47, 107, 84, 0.24);
+}
+
+.login-right {
+    height: 72vh;
+    width: 48vh;
+    box-sizing: border-box;
+}
+
+img {
+    height: 100%;
+    width: auto;
+}
+
+.field1 {
+    margin-top: -4vh;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.field2 {
+    margin-top: 2vh;
+    font-family: 'Montserrat', sans-serif;
+}
