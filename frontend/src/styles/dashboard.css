@@ -1,0 +1,82 @@
+.dash { display: grid; gap: clamp(20px, 3vw, 32px); padding: clamp(20px, 3vw, 32px) 0 72px; }
+
+/* ---------- balance band ---------- */
+.balance { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 28px 48px; align-items: end; overflow: hidden; padding: clamp(24px, 4vw, 44px); background: var(--pine-900); color: #fff; border-radius: var(--r-xl); }
+.balance__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.balance__lines path { fill: none; stroke: var(--jade-500); stroke-width: 2; opacity: 0.4; }
+.balance__lines circle { fill: var(--jade-300); }
+.balance__main, .balance__stats { position: relative; }
+.balance__hello { color: var(--jade-200); }
+.balance__label { margin-top: 18px; font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500; letter-spacing: 0; color: var(--jade-200); }
+.balance__amount { font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.balance__paise { font-size: 0.45em; font-weight: 600; letter-spacing: -0.01em; opacity: 0.7; }
+.balance__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.balance__stats { display: grid; gap: 18px; padding-left: 28px; border-left: 1px solid rgba(255, 255, 255, 0.18); }
+.balance__stats dt { font-size: 0.875rem; color: var(--jade-200); }
+.balance__stats dd { font-family: var(--font-display); font-size: 1.5rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .balance { grid-template-columns: 1fr; }
+  .balance__stats { grid-template-columns: 1fr 1fr; padding: 18px 0 0; border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.18); }
+}
+
+/* ---------- move money + calendar ---------- */
+.dash__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(16px, 2.5vw, 28px); align-items: start; }
+@media (max-width: 900px) { .dash__grid { grid-template-columns: 1fr; } }
+
+.tabs { display: flex; gap: 4px; padding: 4px; margin-bottom: 22px; background: var(--mist); border-radius: var(--r-md); }
+.tab { flex: 1; min-height: 40px; border: 0; border-radius: 9px; background: transparent; color: var(--ink-2); font-weight: 600; }
+.tab:hover { color: var(--ink); }
+.tab--on { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px rgba(6, 35, 26, 0.15); }
+
+.recipient { display: flex; align-items: center; min-height: 26px; }
+.recipient__checking { font-size: 0.875rem; color: var(--ink-3); }
+.recipient__found { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--jade-700); }
+
+.chips[aria-label='Quick amounts'] { margin-top: -6px; }
+
+.review { display: grid; gap: 18px; }
+.review__title { font-size: 1.25rem; }
+.review__list { display: grid; }
+.review__list > div { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.review__list dt { color: var(--ink-3); }
+.review__list dd { text-align: right; overflow-wrap: anywhere; }
+.review__who { display: flex; align-items: center; gap: 10px; text-align: left; }
+.review__who span { display: grid; font-weight: 600; }
+.review__who small { font-weight: 400; color: var(--ink-3); }
+.review__amount { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+.review__actions { display: flex; gap: 10px; }
+.review__actions .btn--primary { flex: 1; }
+
+.calendar__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+.calendar__total { margin-top: 4px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.calendar__nav { display: flex; gap: 8px; }
+.calendar__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.calendar[aria-busy='true'] .calendar__grid { opacity: 0.55; transition: opacity 0.15s; }
+.calendar__weekday { padding-bottom: 4px; text-align: center; font-size: 0.8125rem; color: var(--ink-3); }
+.day { aspect-ratio: 1; display: grid; place-items: center; border: 0; border-radius: 8px; color: var(--ink-2); font-size: 0.875rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.day:hover:not(:disabled) { box-shadow: inset 0 0 0 2px var(--ink); }
+.day:disabled { background: transparent; color: #a9b6af; }
+.day--today { box-shadow: inset 0 0 0 2px var(--jade-600); }
+.day--selected { box-shadow: inset 0 0 0 2px var(--ink); font-weight: 700; }
+.calendar__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; margin-top: 16px; }
+.calendar__detail { color: var(--ink-2); min-height: 1.5em; }
+.legend { display: flex; align-items: center; gap: 5px; font-size: 0.8125rem; color: var(--ink-3); }
+.legend i { width: 14px; height: 14px; border-radius: 4px; }
+
+/* ---------- activity ---------- */
+.activity__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+.activity__day { margin: 22px 0 4px; font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; letter-spacing: 0; color: var(--ink-3); }
+.tx { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+.tx:first-child { border-top: 0; }
+.tx__body { flex: 1; min-width: 0; }
+.tx__title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tx__meta { font-size: 0.875rem; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tx__amount { font-family: var(--font-display); font-weight: 650; font-size: 1.125rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tx__amount--in { color: var(--jade-700); }
+.activity__more { margin-top: 20px; }
+
+.skeleton-row { display: grid; grid-template-columns: 42px 1fr 80px; gap: 14px; align-items: center; padding: 14px 0; }
+.skeleton-row span { height: 14px; border-radius: 6px; background: linear-gradient(90deg, var(--line) 25%, var(--mist) 50%, var(--line) 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.skeleton-row span:first-child { height: 42px; border-radius: 50%; }
+@keyframes shimmer { to { background-position: -200% 0; } }

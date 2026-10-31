@@ -1,0 +1,38 @@
+:root {
+  /* Pine: the brand's deep green, used for ink-heavy surfaces */
+  --pine-950: #06231a;
+  --pine-900: #0a2e22;
+  --pine-800: #0f4030;
+  --pine-700: #165a42;
+  /* Jade: the single accent. 600 is the AA-safe text/button shade on light backgrounds */
+  --jade-700: #09643f;
+  --jade-600: #0b7a50;
+  --jade-500: #14a368;
+  --jade-300: #7fd8b0;
+  --jade-200: #b4e8d0;
+  --jade-100: #d9f3e7;
+  --jade-50: #eef9f3;
+  /* Neutrals with a green undertone */
+  --mist: #f1f5f3;
+  --paper: #ffffff;
+  --line: #dbe4df;
+  --line-strong: #c3d0c9;
+  --ink: #10211a;
+  --ink-2: #3f5148;
+  --ink-3: #5a6b62;
+  /* Reserved for errors only */
+  --ember-600: #b93a12;
+  --ember-100: #fbe7df;
+
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+
+  --container: 1120px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --nav-h: 64px;
+}

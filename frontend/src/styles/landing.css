@@ -1,0 +1,60 @@
+.hero { padding: clamp(36px, 7vw, 88px) 0 clamp(40px, 6vw, 72px); }
+.hero__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero__title { font-size: clamp(2.25rem, 5.4vw, 4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; color: var(--pine-900); }
+.hero__lead { margin-top: 20px; max-width: 52ch; font-size: 1.1875rem; color: var(--ink-2); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero__fine { margin-top: 18px; font-size: 0.9375rem; color: var(--ink-3); }
+
+/* The one memorable moment: a transfer draws itself between two people, once. */
+.preview { background: var(--pine-900); color: #fff; border-radius: var(--r-xl); padding: clamp(18px, 3vw, 30px); overflow: hidden; }
+.preview__svg { display: block; width: 100%; height: auto; }
+.preview__path { fill: none; stroke: var(--jade-300); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s 0.3s cubic-bezier(0.5, 0, 0.2, 1) forwards; }
+.preview__tip { fill: var(--jade-300); opacity: 0; animation: appear 0.2s 1.3s forwards; }
+.preview__node { fill: var(--pine-700); }
+.preview__node--to { fill: var(--jade-100); }
+.preview__initials { fill: #fff; font: 650 18px var(--font-display); }
+.preview__initials--to { fill: var(--pine-900); }
+.preview__name { fill: var(--jade-200); font: 500 15px var(--font-body); }
+.preview__caption { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 4px 12px; margin-top: 8px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.14); opacity: 0; animation: appear 0.4s 1.2s forwards; }
+.preview__amount { grid-row: span 2; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.preview__amount small { font-size: 0.5em; opacity: 0.7; }
+.preview__note { justify-self: end; color: var(--jade-200); font-size: 0.9375rem; }
+.preview__status { justify-self: end; display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; border-radius: 999px; background: var(--jade-500); color: var(--pine-950); font-weight: 700; font-size: 0.875rem; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes appear { to { opacity: 1; } }
+
+.section { padding: clamp(44px, 7vw, 84px) 0; }
+.section--tint { background: var(--paper); border-block: 1px solid var(--line); }
+.section__title { font-size: clamp(1.6rem, 3.4vw, 2.25rem); margin-bottom: clamp(24px, 4vw, 44px); }
+
+.features { display: grid; }
+.feature { display: grid; grid-template-columns: 1fr minmax(220px, 340px); gap: 24px 48px; align-items: center; padding: 28px 0; border-top: 1px solid var(--line); }
+.feature:last-child { border-bottom: 1px solid var(--line); }
+.feature h3 { font-size: 1.5rem; margin-bottom: 8px; }
+.feature p { max-width: 52ch; color: var(--ink-2); }
+
+.mini { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); }
+.mini span { color: var(--ink-3); }
+.mini b { font-family: var(--font-display); font-weight: 650; font-size: 1.125rem; }
+.mini--lookup b { display: inline-flex; padding: 3px 10px; border-radius: 999px; background: var(--jade-100); color: var(--jade-700); font-size: 0.9375rem; font-family: var(--font-body); }
+.mini--add b { color: var(--jade-700); }
+.mini--heat { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.mini--heat i { aspect-ratio: 1; border-radius: 4px; }
+
+.stack__row { display: grid; grid-template-columns: minmax(180px, 280px) 1fr; gap: 8px 32px; padding: 18px 0; border-top: 1px solid var(--line); }
+.stack__row:first-child { border-top: 0; }
+.stack dt { font-family: var(--font-display); font-weight: 650; font-size: 1.125rem; }
+.stack dd { color: var(--ink-2); max-width: 60ch; }
+
+.footer { padding: 32px 0; color: var(--ink-3); font-size: 0.9375rem; }
+.footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.footer__brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 650; color: var(--pine-900); }
+
+.notfound { display: grid; justify-items: start; gap: 14px; padding: 12vh 0; }
+.notfound p { color: var(--ink-2); }
+
+@media (max-width: 860px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .feature { grid-template-columns: 1fr; gap: 16px; }
+  .stack__row { grid-template-columns: 1fr; }
+}

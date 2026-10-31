@@ -1,0 +1,27 @@
+.admin { padding: clamp(24px, 4vw, 44px) 0 72px; }
+.admin__title { font-size: clamp(1.75rem, 3.4vw, 2.25rem); margin-bottom: 24px; }
+
+.figures { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 40px; border-block: 1px solid var(--line-strong); }
+.figures > div { padding: 18px 20px; border-left: 1px solid var(--line); }
+.figures > div:first-child { padding-left: 0; border-left: 0; }
+.figures dt { font-size: 0.875rem; color: var(--ink-3); }
+.figures dd { font-family: var(--font-display); font-size: clamp(1.25rem, 2.6vw, 1.875rem); font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .figures { grid-template-columns: 1fr 1fr; }
+  .figures > div:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .figures > div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+}
+
+.admin__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.admin__search input { width: min(100%, 320px); height: 42px; padding: 0 14px; background: var(--paper); border: 1.5px solid var(--line-strong); border-radius: var(--r-sm); outline: 0; }
+.admin__search input:focus { border-color: var(--jade-600); box-shadow: 0 0 0 3px rgba(20, 163, 104, 0.2); }
+
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.table { width: 100%; min-width: 720px; border-collapse: collapse; }
+.table th, .table td { padding: 12px 16px; text-align: left; white-space: nowrap; }
+.table thead th { font-size: 0.875rem; font-weight: 600; color: var(--ink-3); border-bottom: 1px solid var(--line); }
+.table tbody tr + tr td { border-top: 1px solid var(--line); }
+.table[aria-busy='true'] { opacity: 0.55; }
+.table th.table__num, .table td.table__num { text-align: right; font-variant-numeric: tabular-nums; }
+.table__name { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+.table-wrap .empty { padding: 20px 16px; }
