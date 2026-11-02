@@ -1,6 +1,5 @@
 import Icon from './Icon';
 
-// Curated pairs (background, text) so a list of avatars looks designed, not random.
 const TONES = [
   ['#d9f3e7', '#0a4d33'],
   ['#fde9d3', '#7a3b05'],

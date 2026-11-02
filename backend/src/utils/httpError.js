@@ -1,4 +1,3 @@
-/** An error that is safe to show to the client. */
 class HttpError extends Error {
   /**
    * @param {number} status   HTTP status code

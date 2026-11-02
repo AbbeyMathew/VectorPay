@@ -4,11 +4,6 @@ import { isCanceled } from '../../api/client';
 import { normalizePhone } from '../../utils/phone';
 import Avatar from '../Avatar';
 
-/**
- * Phone input that looks the owner up as soon as ten digits are entered,
- * so the sender can confirm WHO they are paying. Reports its state upward:
- * onLookup({ status: 'idle' | 'checking' | 'found' | 'missing' | 'self' | 'error', name })
- */
 export default function RecipientField({ value, onChange, onLookup, error }) {
   const id = useId();
   const [state, setState] = useState({ status: 'idle', name: '' });

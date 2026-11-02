@@ -15,7 +15,6 @@ const requireAuth = asyncHandler(async (req, res, next) => {
   }
   if (!payload.sub) throw new HttpError(401, 'Sign in to continue');
 
-  // Always load the user so role changes and deletions take effect immediately.
   const user = await User.findById(payload.sub);
   if (!user) throw new HttpError(401, 'Sign in to continue');
 

@@ -1,7 +1,3 @@
-/**
- * All money is stored and transferred as integer paise (1 rupee = 100 paise).
- * Integers avoid the rounding errors you get with floating-point rupees.
- */
 const PAISE_PER_RUPEE = 100;
 
 const LIMITS = Object.freeze({

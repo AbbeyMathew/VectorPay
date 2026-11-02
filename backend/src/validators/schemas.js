@@ -15,7 +15,6 @@ const email = z
   .max(120, 'Email is too long')
   .email('Enter a valid email address');
 
-// bcrypt only uses the first 72 bytes, so longer passwords would be silently truncated.
 const password = z
   .string({ required_error: 'Enter a password' })
   .min(8, 'Use at least 8 characters')

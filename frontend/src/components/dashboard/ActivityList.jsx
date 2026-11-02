@@ -39,7 +39,7 @@ export default function ActivityList({ version }) {
   const [filter, setFilter] = useState('all');
   const [items, setItems] = useState([]);
   const [cursor, setCursor] = useState(null);
-  const [status, setStatus] = useState('loading'); // loading | ready | error
+  const [status, setStatus] = useState('loading');
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState('');
 

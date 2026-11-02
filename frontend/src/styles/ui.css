@@ -297,7 +297,7 @@
   color: #fff; 
 }
 
-/* Heat scale shared by the calendar, legend and landing preview */
+/* Heat scale */
 .heat-0 { 
   background: var(--mist); 
 }

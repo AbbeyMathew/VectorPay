@@ -75,7 +75,6 @@ describe('wallet', () => {
     const bob = await signUp(app);
     await alice.agent.post('/api/wallet/topup').send({ amount: rupees(100) });
 
-    // Ten parallel ₹30 transfers from a ₹100 balance: exactly three can succeed.
     const results = await Promise.all(
       Array.from({ length: 10 }, () =>
         alice.agent.post('/api/wallet/transfer').send({ toPhone: bob.user.phone, amount: rupees(30) })

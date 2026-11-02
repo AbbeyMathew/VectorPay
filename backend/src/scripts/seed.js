@@ -1,12 +1,3 @@
-/**
- * Seeds an admin account and, optionally, demo users with ~75 days of realistic activity.
- *
- *   npm run seed                 admin only
- *   npm run seed -- --demo       admin + 3 demo users with history
- *   npm run seed -- --demo --reset   wipe all data first (blocked in production)
- *
- * History is generated from a fixed random seed, so every run looks the same.
- */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const env = require('../config/env');
@@ -25,7 +16,7 @@ const DEMO_USERS = [
   { name: 'Diya Nair', phone: '9876543211', email: 'diya@vectorpay.test' },
   { name: 'Kabir Thomas', phone: '9876543212', email: 'kabir@vectorpay.test' },
 ];
-// [days ago, rupees] top-ups per demo user
+
 const TOPUPS = [
   [[72, 15000], [49, 9000], [27, 12000], [9, 8000]],
   [[68, 10000], [41, 7000], [18, 9000]],
@@ -77,7 +68,7 @@ function buildHistory(users) {
 
   events.sort((a, b) => a.ts - b.ts);
 
-  // Replay in time order so no wallet ever goes negative.
+  
   const balances = users.map(() => 0);
   const rows = [];
   let lastSecond = 0;
@@ -86,7 +77,6 @@ function buildHistory(users) {
     else if (balances[e.from] >= e.amount) { balances[e.from] -= e.amount; balances[e.to] += e.amount; }
     else continue;
 
-    // ObjectIds are derived from the timestamp so "newest first" paging matches createdAt.
     const second = Math.max(Math.floor(e.ts / 1000), lastSecond + 1);
     lastSecond = second;
     const at = new Date(second * 1000);

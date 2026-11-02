@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { dateKey, dayLabel, greeting, endOfMonth } from './date.js';
 
 describe('date helpers', () => {
-  const now = new Date(2026, 9, 30, 14, 5); // 30 Oct 2026, 2:05pm local
+  const now = new Date(2026, 9, 30, 14, 5);
 
   it('builds zero-padded local day keys', () => {
     assert.equal(dateKey(new Date(2026, 0, 5)), '2026-01-05');

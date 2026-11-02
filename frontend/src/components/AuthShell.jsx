@@ -6,7 +6,6 @@ const POINTS = [
   'Your session lives in a secure cookie that page scripts cannot read.',
 ];
 
-/** Two-column frame shared by sign in, sign up and password reset. */
 export default function AuthShell({ title, intro, children, footer }) {
   return (
     <div className="auth">

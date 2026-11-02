@@ -10,10 +10,6 @@ async function getWallet(userId) {
   return { balance: wallet.balance, currency: wallet.currency };
 }
 
-/**
- * Add money to the caller's own wallet (simulates a bank transfer).
- * Ledger-first: write a pending row, move the money, then settle the row.
- */
 async function topUp(userId, amount) {
   const tx = await Transaction.create({
     to: userId,
@@ -33,21 +29,11 @@ async function topUp(userId, amount) {
   return { balance: wallet.balance, currency: wallet.currency };
 }
 
-/**
- * Send money to another user by phone number.
- *
- * Concurrency: the debit is a single conditional update ("balance >= amount")
- * so two simultaneous requests can never overdraw a wallet, even without a
- * multi-document transaction.
- * Failure handling: if crediting the recipient fails, the sender is refunded
- * and the ledger row is marked failed.
- */
 async function transfer({ senderId, toPhone, amount, note }) {
   const recipient = await User.findOne({ phone: toPhone }).select('name phone');
   if (!recipient) throw new HttpError(404, 'No VectorPay account uses that phone number', { toPhone: 'No account found' });
   if (recipient._id.equals(senderId)) throw new HttpError(400, "You can't send money to yourself", { toPhone: "That's your own number" });
 
-  // Cheap early exit so obviously-unaffordable attempts don't create ledger rows.
   const canAfford = await Wallet.exists({ user: senderId, balance: { $gte: amount } });
   if (!canAfford) throw new HttpError(400, 'Not enough balance for this transfer', { amount: 'Not enough balance' });
 
@@ -66,7 +52,6 @@ async function transfer({ senderId, toPhone, amount, note }) {
     { new: true }
   );
   if (!debited) {
-    // Lost a race with another request that spent the balance first.
     await Transaction.updateOne({ _id: tx._id }, { status: 'failed' });
     throw new HttpError(400, 'Not enough balance for this transfer', { amount: 'Not enough balance' });
   }
@@ -90,7 +75,6 @@ async function transfer({ senderId, toPhone, amount, note }) {
   };
 }
 
-/** Cursor-paginated activity feed (newest first). The cursor is the last row's _id. */
 async function listTransactions(userId, { limit, before, type }) {
   const filter = { status: 'completed' };
   if (type === 'sent') Object.assign(filter, { from: userId, type: 'transfer' });
@@ -127,7 +111,6 @@ async function listTransactions(userId, { limit, before, type }) {
   return { transactions, nextCursor: hasMore ? String(page[page.length - 1]._id) : null };
 }
 
-/** Total sent per calendar day (in the caller's time zone) for the heatmap. Sparse: only days with spend. */
 async function dailySpend(userId, { start, end, tz }) {
   const rows = await Transaction.aggregate([
     { $match: { from: userId, type: 'transfer', status: 'completed', createdAt: { $gte: start, $lte: end } } },

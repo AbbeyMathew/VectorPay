@@ -9,7 +9,6 @@ const signSession = (userId) =>
 
 const verifySession = (token) => jwt.verify(token, env.jwtSecret);
 
-/** httpOnly keeps the token out of reach of page scripts (XSS); SameSite=Lax blunts CSRF. */
 const cookieOptions = () => ({
   httpOnly: true,
   sameSite: 'none',
@@ -23,7 +22,6 @@ function setSessionCookie(res, token) {
 
 const clearSessionCookie = (res) => res.clearCookie(COOKIE_NAME, cookieOptions());
 
-/** Short-lived token proving the holder just passed OTP verification. */
 const signResetToken = (email) =>
   jwt.sign({ email, purpose: 'password-reset' }, env.jwtSecret, { expiresIn: '10m' });
 

@@ -22,8 +22,6 @@ export async function login(credentials) {
         window.dispatchEvent(new Event("auth:changed"));
     }
     return res;
-
-    /* return api.post("/auth/login", credentials); */
 }
 
 export function requestPasswordReset(email) {

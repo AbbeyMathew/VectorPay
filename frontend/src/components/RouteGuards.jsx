@@ -9,7 +9,6 @@ export function PageLoader() {
   );
 }
 
-/** Only signed-in people get through. Admin-only pages pass `admin`. */
 export function ProtectedRoute({ admin = false, children }) {
   const { user, status } = useAuth();
   const location = useLocation();
@@ -20,7 +19,6 @@ export function ProtectedRoute({ admin = false, children }) {
   return children;
 }
 
-/** Sign-in / sign-up pages: signed-in people are sent on to where they were headed. */
 export function GuestRoute({ children }) {
   const { user, status } = useAuth();
   const location = useLocation();

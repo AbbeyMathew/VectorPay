@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useAuth, homePathFor } from '../context/AuthContext';
 import { LogoMark } from '../components/Logo';
 
-/** A small, honest preview of the core flow: a transfer from one person to another. */
 function TransferPreview() {
   return (
     <figure className="preview" aria-label="Example: Aarav sends ₹1,250.00 to Diya for dinner">

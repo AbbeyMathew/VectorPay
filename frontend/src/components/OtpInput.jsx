@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-/** Six single-digit boxes that behave like one field: typing, pasting, SMS autofill and backspace all work. */
 export default function OtpInput({ length = 6, value, onChange, onComplete, disabled = false, invalid = false }) {
   const refs = useRef([]);
   const digits = Array.from({ length }, (_, i) => value[i] ?? '');
@@ -16,16 +15,15 @@ export default function OtpInput({ length = 6, value, onChange, onComplete, disa
   };
 
   const handleChange = (index, event) => {
-    // Digits can only be added next to existing ones, so never skip ahead of what's filled in.
     const slot = Math.min(index, value.length);
     let typed = event.target.value.replace(/\D/g, '');
 
     if (!typed) {
-      commit(value.slice(0, slot) + value.slice(slot + 1)); // box was cleared
+      commit(value.slice(0, slot) + value.slice(slot + 1));
       return;
     }
-    if (digits[slot] && typed.length === 2) typed = typed.slice(-1); // typed over an existing digit
-    const tail = typed.length === 1 ? value.slice(slot + 1) : ''; // multiple digits = paste/autofill
+    if (digits[slot] && typed.length === 2) typed = typed.slice(-1);
+    const tail = typed.length === 1 ? value.slice(slot + 1) : '';
     commit(value.slice(0, slot) + typed + tail);
     focus(slot + typed.length);
   };

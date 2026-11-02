@@ -1,12 +1,10 @@
 const pad = (n) => String(n).padStart(2, '0');
 
-/** Local calendar day as "YYYY-MM-DD" (matches the keys the API returns for the user's time zone). */
 export const dateKey = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 
 export const startOfMonth = (year, month) => new Date(year, month, 1, 0, 0, 0, 0);
 export const endOfMonth = (year, month) => new Date(year, month + 1, 0, 23, 59, 59, 999);
 
-/** "Today", "Yesterday", or "Mon, 12 Oct" (with the year when it isn't this year). */
 export function dayLabel(date, now = new Date()) {
   const key = dateKey(date);
   if (key === dateKey(now)) return 'Today';

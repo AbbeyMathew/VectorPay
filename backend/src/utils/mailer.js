@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const env = require('../config/env');
 
-/** In tests, messages are collected here instead of being sent. */
 const outbox = [];
 
 let transporter;
@@ -30,7 +29,6 @@ async function sendMail({ to, subject, text, html }) {
     return;
   }
 
-  // No SMTP configured: print the email so the flow is still testable locally.
   if (env.isProd && env.mail.transport !== 'console') {
     throw new Error('SMTP is not configured (set SMTP_HOST, or MAIL_TRANSPORT=console for demos)');
   }

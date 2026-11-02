@@ -15,7 +15,6 @@ export default function Dashboard() {
   const [wallet, setWallet] = useState(null);
   const [summary, setSummary] = useState({ sent: 0, received: 0 });
   const [tab, setTab] = useState('send');
-  // Bumped after every money movement so balance, calendar and activity all refetch.
   const [version, setVersion] = useState(0);
   const movePanel = useRef(null);
 
@@ -40,7 +39,7 @@ export default function Dashboard() {
 
   const openTab = (id) => {
     setTab(id);
-    movePanel.current?.focus(); // moves keyboard focus and scrolls it into view
+    movePanel.current?.focus();
   };
 
   return (

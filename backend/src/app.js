@@ -13,7 +13,6 @@ const app = express();
 if (env.trustProxy) app.set('trust proxy', 1);
 
 app.use(helmet());
-// Only needed when the frontend is served from a different origin than the API.
 app.use(cors({ origin: env.clientOrigin, credentials: true }));
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());

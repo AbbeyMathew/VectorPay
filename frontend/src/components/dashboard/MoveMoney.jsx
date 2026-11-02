@@ -8,7 +8,7 @@ import { useToast } from '../../context/ToastContext';
 import { checkAmount, formatINR, MAX_TOPUP, MAX_TRANSFER } from '../../utils/money';
 import { formatPhone, normalizePhone } from '../../utils/phone';
 
-const QUICK_ADD = [50000, 100000, 500000]; // paise
+const QUICK_ADD = [50000, 100000, 500000];
 
 const emptySend = { phone: '', amount: '', note: '' };
 

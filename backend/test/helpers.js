@@ -1,4 +1,3 @@
-// Must run before any app code is required: env is read at import time.
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'test-secret-test-secret-test-secret-1234';
 
@@ -11,7 +10,6 @@ let mongod;
 async function startDb() {
   mongod = await MongoMemoryServer.create();
   await mongoose.connect(mongod.getUri());
-  // Index builds must finish so unique constraints are enforced in tests.
   await Promise.all(Object.values(mongoose.models).map((m) => m.init()));
 }
 
@@ -25,7 +23,6 @@ async function clearDb() {
 }
 
 let counter = 0;
-/** Registers a fresh user and returns a supertest agent that carries their session cookie. */
 async function signUp(app, overrides = {}) {
   counter += 1;
   const body = {

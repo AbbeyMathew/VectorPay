@@ -1,10 +1,10 @@
 :root {
-  /* Pine: the brand's deep green, used for ink-heavy surfaces */
+  /* Pine */
   --pine-950: #06231a;
   --pine-900: #0a2e22;
   --pine-800: #0f4030;
   --pine-700: #165a42;
-  /* Jade: the single accent. 600 is the AA-safe text/button shade on light backgrounds */
+  /* Jade */
   --jade-700: #09643f;
   --jade-600: #0b7a50;
   --jade-500: #14a368;
@@ -20,7 +20,7 @@
   --ink: #10211a;
   --ink-2: #3f5148;
   --ink-3: #5a6b62;
-  /* Reserved for errors only */
+  /* Errors */
   --ember-600: #b93a12;
   --ember-100: #fbe7df;
 

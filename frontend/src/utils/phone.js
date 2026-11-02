@@ -1,4 +1,4 @@
-/** Bare digits, with a leading +91 / 0 removed (mirrors the server). */
+/** Bare digits, with a leading +91 / 0 removed */
 export function normalizePhone(input) {
   let digits = String(input ?? '').replace(/\D/g, '');
   if (digits.length === 12 && digits.startsWith('91')) digits = digits.slice(2);

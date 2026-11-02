@@ -6,9 +6,7 @@ function notFound(req, res) {
   res.status(404).json({ message: `No route for ${req.method} ${req.originalUrl}` });
 }
 
-// eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
-  // Validation failures from zod -> 400 with per-field messages for forms.
   if (err?.name === 'ZodError') {
     const fields = {};
     for (const issue of err.issues) {
@@ -22,7 +20,6 @@ function errorHandler(err, req, res, next) {
     return res.status(err.status).json({ message: err.message, ...(err.fields && { errors: err.fields }) });
   }
 
-  // Unique index violation (e.g. two sign-ups racing for the same phone number).
   if (err?.code === 11000) {
     const key = Object.keys(err.keyPattern || {})[0] || 'value';
     const label = FIELD_LABELS[key] || key;

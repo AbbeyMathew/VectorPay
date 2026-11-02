@@ -23,7 +23,6 @@ const env = {
   },
 };
 
-/** Fail fast with a readable message instead of a cryptic crash later. */
 env.assertRuntime = function assertRuntime() {
   const problems = [];
   if (!env.mongoUri) problems.push('MONGO_URI is not set');

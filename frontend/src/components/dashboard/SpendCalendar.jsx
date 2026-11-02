@@ -6,7 +6,6 @@ import Icon from '../Icon';
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-/** 0 = nothing spent, 1-4 = quartiles of the busiest day this month. */
 function levelFor(value, max) {
   if (!value || !max) return 0;
   const ratio = value / max;
@@ -47,7 +46,7 @@ export default function SpendCalendar({ version }) {
 
   const first = startOfMonth(cursor.year, cursor.month);
   const daysInMonth = endOfMonth(cursor.year, cursor.month).getDate();
-  const leading = (first.getDay() + 6) % 7; // Monday-first
+  const leading = (first.getDay() + 6) % 7;
   const values = Object.values(days);
   const max = Math.max(0, ...values);
   const total = values.reduce((a, b) => a + b, 0);

@@ -97,7 +97,6 @@
   color: var(--jade-300);
 }
 
-/* Compact auth forms on desktop */
 @media (min-width: 861px) {
   .auth .form {
     gap: 11px;
@@ -133,7 +132,6 @@
   }
 }
 
-/* Extra compact spacing for shorter laptop screens */
 @media (min-width: 861px) and (max-height: 800px) {
   .auth__main {
     padding-top: 12px;
@@ -173,7 +171,6 @@
 }
 
 
-/* Fixed-screen authentication pages */
 @media (min-width: 861px) {
   body:has(.auth) {
     overflow: hidden;
@@ -195,7 +192,6 @@
   }
 }
 
-/* Keep mobile usable */
 @media (max-width: 860px) {
   body:has(.auth) {
     overflow-y: auto;

@@ -25,7 +25,7 @@ export default function Login() {
 
     setBusy(true);
     try {
-      await signIn(form); // GuestRoute then redirects to the right page
+      await signIn(form);
     } catch (err) {
       const fields = fieldErrors(err);
       setErrors(fields);

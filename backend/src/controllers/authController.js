@@ -19,7 +19,6 @@ const BCRYPT_ROUNDS = env.isTest ? 4 : 12;
 const OTP_TTL_MS = 10 * 60 * 1000;
 const MAX_OTP_ATTEMPTS = 5;
 
-// Compared against when the phone number is unknown, so response time doesn't reveal which numbers exist.
 const DUMMY_HASH = bcrypt.hashSync('not-a-real-password', BCRYPT_ROUNDS);
 
 const register = asyncHandler(async (req, res) => {
@@ -35,7 +34,7 @@ const register = asyncHandler(async (req, res) => {
   try {
     await Wallet.create({ user: user._id });
   } catch (err) {
-    await User.deleteOne({ _id: user._id }); // never leave a user without a wallet
+    await User.deleteOne({ _id: user._id });
     throw err;
   }
 
@@ -48,7 +47,6 @@ const login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ phone }).select('+password');
   const passwordOk = await bcrypt.compare(password, user ? user.password : DUMMY_HASH);
 
-  // One message for both cases, so attackers can't probe which numbers are registered.
   if (!user || !passwordOk) throw new HttpError(401, 'Phone number or password is incorrect');
 
   setSessionCookie(res, signSession(user._id));
@@ -85,14 +83,12 @@ const forgotPassword = asyncHandler(async (req, res) => {
     }
   }
 
-  // Same response whether or not the account exists.
   res.json({ message: 'If that email has an account, we sent a 6-digit code.' });
 });
 
 const verifyOtp = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
 
-  // Counting the attempt atomically stops parallel guesses from sneaking past the limit.
   const record = await PasswordReset.findOneAndUpdate(
     { email, expiresAt: { $gt: new Date() } },
     { $inc: { attempts: 1 } },
@@ -106,7 +102,7 @@ const verifyOtp = asyncHandler(async (req, res) => {
   }
   if (!otpMatches(email, otp, record.otpHash)) throw new HttpError(400, 'That code is invalid or has expired');
 
-  await PasswordReset.deleteOne({ _id: record._id }); // codes are single-use
+  await PasswordReset.deleteOne({ _id: record._id });
   res.json({ resetToken: signResetToken(email) });
 });
 
@@ -121,13 +117,12 @@ const resetPassword = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: payload.email }).select('+password');
   if (!user) throw new HttpError(400, 'This reset session has expired. Start again.');
 
-  // A reset token can only be used once: it is older than the password it already changed.
   if (user.passwordChangedAt && payload.iat < Math.floor(user.passwordChangedAt.getTime() / 1000)) {
     throw new HttpError(400, 'This reset session has already been used. Start again.');
   }
 
   user.password = await bcrypt.hash(req.body.password, BCRYPT_ROUNDS);
-  user.passwordChangedAt = new Date(); // signs out every existing session
+  user.passwordChangedAt = new Date();
   await user.save();
 
   clearSessionCookie(res);

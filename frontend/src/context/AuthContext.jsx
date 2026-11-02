@@ -8,11 +8,10 @@ export const homePathFor = (user) => (user?.isAdmin ? '/admin' : '/dashboard');
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [status, setStatus] = useState('loading'); // 'loading' | 'ready'
+  const [status, setStatus] = useState('loading');
 
   useEffect(() => {
     let active = true;
-    // Any 401 from the API (expired session, password changed elsewhere) signs the UI out.
     setUnauthorizedHandler(() => setUser(null));
 
     authApi

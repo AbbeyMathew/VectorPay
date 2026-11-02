@@ -7,7 +7,6 @@ const passwordResetSchema = new mongoose.Schema({
   expiresAt: { type: Date, required: true },
 });
 
-// MongoDB deletes expired codes automatically.
 passwordResetSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 module.exports = mongoose.model('PasswordReset', passwordResetSchema);

@@ -1,4 +1,3 @@
-/** Strips formatting and a leading country/trunk prefix, returning bare digits. */
 function normalizePhone(input) {
   let digits = String(input ?? '').replace(/\D/g, '');
   if (digits.length === 12 && digits.startsWith('91')) digits = digits.slice(2);
