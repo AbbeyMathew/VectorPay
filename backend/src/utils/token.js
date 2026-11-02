@@ -12,8 +12,8 @@ const verifySession = (token) => jwt.verify(token, env.jwtSecret);
 /** httpOnly keeps the token out of reach of page scripts (XSS); SameSite=Lax blunts CSRF. */
 const cookieOptions = () => ({
   httpOnly: true,
-  sameSite: 'lax',
-  secure: env.cookieSecure,
+  sameSite: 'none',
+  secure: true,
   path: '/',
 });
 
